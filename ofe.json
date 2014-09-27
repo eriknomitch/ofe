@@ -4,7 +4,7 @@
     "files":      ["Rakefile", "Gemfile", "bin/*", "ofe.json", ".gitignore", "foo bar"]
   },
   "docs": {
-    "extensions": [".md"],
+    "extensions": [".md"]
   },
   "git": {
     "files": [".git/config", ".gitignore"]
