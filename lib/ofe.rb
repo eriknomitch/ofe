@@ -12,6 +12,13 @@ module Ofe
   # ----------------------------------------------
   
   # ----------------------------------------------
+  # UTILITY --------------------------------------
+  # ----------------------------------------------
+  def self.current_file_basename
+    File.basename $0
+  end
+  
+  # ----------------------------------------------
   # CONFIG-FILE ----------------------------------
   # ----------------------------------------------
   def self.config_file_filename
@@ -57,7 +64,8 @@ module Ofe
       puts target
 
     rescue => exception
-      puts exception
+      puts "#{current_file_basename}: #{exception}"
+      exit 1
     end
   end
   
