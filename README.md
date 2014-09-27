@@ -75,19 +75,19 @@ $ ofe
 $ ofe docs
 
 # Lists all groups configured in ofe.json
-$ ofe --groups
+$ ofe --groups|-g
 
 # Parses and pretty prints ofe.json
-$ ofe --list
+$ ofe --list|-l
 
 # Parses and pretty prints group from ofe.json
-$ ofe --list git
+$ ofe --list|-l git
 
 # Writes an example config file to ./ofe.json
-$ ofe --mk-example-config
+$ ofe --mk-example-config|-m
 
 # Opens ofe.json in your editor
-$ ofe --self
+$ ofe --self|-s
 
 ```
 
