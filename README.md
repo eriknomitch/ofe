@@ -22,13 +22,17 @@ Within groups, you can define keys:
 {
   "default": {
     "extensions": [".rb", ".gem", ".md"],
-    "files":      ["Rakefile", "Gemfile", "bin/*", "ofe.json", ".gitignore", "foo bar"]
+    "files":      ["Rakefile", "Gemfile", "bin/*", "ofe.json", ".gitignore", "foo bar"],
+    "exclusions": ["test/", "spec/"]
   },
   "docs": {
     "extensions": [".md"]
   },
   "git": {
     "files": [".git/config", ".gitignore"]
+  },
+  "test": {
+    "files": ["test/**/*.rb", "spec/**/*.rb"]
   }
 }
 ```
