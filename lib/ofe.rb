@@ -63,7 +63,7 @@ module Ofe
   def self.make_example_config_file
     raise "Cannot make config file because ./ofe.json already exists." if config_file_exists?
 
-    empty_config_file <<-EOS
+    empty_config_file = <<-EOS
 {
   "default": {
     "extensions": [],
@@ -77,6 +77,17 @@ module Ofe
   }
 }
     EOS
+
+    File.open(config_file_filename, "w") do |file|
+      file.puts empty_config_file
+    end
+
+    puts "Example ofe.json file:"
+    puts "--------------------------------------------------"
+    puts empty_config_file
+    puts "--------------------------------------------------"
+    puts "Wrote example config file to ./ofe.json"
+
   end
 
   def self.require_editor_env_variable
