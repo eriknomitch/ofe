@@ -4,6 +4,8 @@ CLI Gem which opens specified files (ofe.json) for editing in your text editor
 
 ## Installation
 
+Not a published gem yet.
+
 ## Configuration
 
 Add an `ofe.json` configuration file in any directory. 
@@ -51,3 +53,14 @@ $ ofe --list
 $ ofe --list git
 
 ```
+
+## Tips
+
+Alias `ofe` for quicker access:
+
+```Shell
+alias o="ofe"
+```
+
+## Credits
+Erik Nomitch: erik@nomitch.com
