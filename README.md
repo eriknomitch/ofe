@@ -64,6 +64,9 @@ $ ofe --list git
 # Writes an example config file to ./ofe.json
 $ ofe --mk-example-config
 
+# Opens ofe.json in your editor
+$ ofe --self
+
 ```
 
 ## Credits

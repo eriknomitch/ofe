@@ -34,6 +34,10 @@ module Ofe
     when "--mk-example-config"
       make_example_config_file
       exit
+    
+    when "--self"
+      open_self
+      exit
 
     end
   end
@@ -90,6 +94,12 @@ module Ofe
 
   end
 
+  def self.open_self
+    parse_and_require_config_file
+
+    system "#{editor} #{config_file_filename}"
+  end
+
   def self.require_editor_env_variable
     unless ENV["EDITOR"]
       raise "EDITOR environment variable is not set."
@@ -127,7 +137,7 @@ module Ofe
   def self.require_config_file
     return true if config_file_exists?
 
-    raise "fatal: No config file found at ./#{config_file_filename}"
+    raise "fatal: No ofe.json config file found in this directory."
   end
 
   def self.parse_and_require_config_file
