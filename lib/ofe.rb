@@ -23,19 +23,19 @@ module Ofe
 
   def self.parse_and_execute_special_arguments
     case ARGV.first
-    when "--list"
+    when "--list", "-l"
       list ARGV[1..ARGV.length-1]
       exit
 
-    when "--groups"
+    when "--groups", "-g"
       list_group_names
       exit
 
-    when "--mk-example-config"
+    when "--mk-example-config", "-m"
       make_example_config_file
       exit
     
-    when "--self"
+    when "--self", "-s"
       open_self
       exit
 
@@ -224,6 +224,10 @@ module Ofe
     # Uniqify
     # --------------------------------------------
     to_open.uniq!
+    
+    # Remove any matches that are directories
+    # --------------------------------------------
+    to_open.delete_if {|file| Dir.exist? file }
     
     # Move "first_file" to front
     # --------------------------------------------
