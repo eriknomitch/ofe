@@ -20,6 +20,29 @@ module Ofe
   def self.current_file_basename
     File.basename $0
   end
+
+  def self.parse_and_execute_special_arguments
+    case ARGV.first
+    when "--list"
+
+      ARGV.shift
+
+      # Support "--list <group>"
+      if group = ARGV.first
+        to_puts = @@config_json[group]
+        raise "Group '#{group}' not found in ofe.json." unless to_puts
+      else
+        to_puts = @@config_json
+      end
+
+      puts JSON.pretty_generate(to_puts)
+      exit
+
+    when "--groups"
+      puts @@config_json.keys
+      exit
+    end
+  end
   
   # ----------------------------------------------
   # CONFIG-FILE ----------------------------------
@@ -38,7 +61,7 @@ module Ofe
     raise "fatal: No config file found at ./#{config_file_filename}"
   end
 
-  def self.parse_config_file
+  def self.parse_and_require_config_file
     require_config_file
 
     begin
@@ -129,7 +152,9 @@ module Ofe
 
     begin
 
-      parse_config_file
+      parse_and_require_config_file
+      parse_and_execute_special_arguments
+
       open_group
 
     rescue => exception
