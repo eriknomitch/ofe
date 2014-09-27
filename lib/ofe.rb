@@ -195,7 +195,11 @@ module Ofe
   # OPENING --------------------------------------
   # ----------------------------------------------
   def self.open_group(group=get_group)
-    to_open_formatted = files_to_open_for_group(group)
+    to_open           = files_to_open_for_group(group, formatted: false)
+    to_open_formatted = format_files_to_open(to_open)
+
+    puts "ofe: Opening files for editing in group '#{group}'."
+    puts to_open.map {|file| "-> #{file}" }
 
     system "#{editor} #{to_open_formatted}"
   end
