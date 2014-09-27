@@ -66,13 +66,5 @@ $ ofe --mk-example-config
 
 ```
 
-## Tips
-
-Alias `ofe` for quicker access:
-
-```Shell
-alias o="ofe"
-```
-
 ## Credits
 Erik Nomitch: erik@nomitch.com
