@@ -160,7 +160,7 @@ module Ofe
     Shellwords.join(files)
   end
 
-  def self.files_to_open_for_group(group, formatted: true)
+  def self.files_to_open_for_group(group, formatted: false)
     group_config = find_group_config(group)
 
     raise "Group '#{group}' is not defined in your ofe.json config file." unless group_config
@@ -219,13 +219,7 @@ module Ofe
   # OPENING --------------------------------------
   # ----------------------------------------------
   def self.open_group(group=get_group)
-    to_open           = files_to_open_for_group(group, formatted: false)
-    to_open_formatted = format_files_to_open(to_open)
-
-    #puts "ofe: Opening files for editing in group '#{group}'."
-    #puts to_open.map {|file| "-> #{file}" }
-
-    system "#{editor} #{to_open_formatted}"
+    system "#{editor} #{files_to_open_for_group(group, formatted: true)}"
   end
 
   # ----------------------------------------------
