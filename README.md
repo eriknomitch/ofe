@@ -4,7 +4,11 @@ CLI Gem which opens specified files (ofe.json) for editing in your text editor
 
 ## Installation
 
-Not a published gem yet.
+```Shell
+git clone https://github.com/eriknomitch/ofe.git
+cd ofe
+rake
+```
 
 ## Configuration
 
