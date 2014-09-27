@@ -1,7 +1,7 @@
 {
   "default": {
     "extensions": [".rb", ".gem", ".md"],
-    "files":      ["Gemfile", "bin/*", "ofe.json", ".gitignore"]
+    "files":      ["Rakefile", "Gemfile", "bin/*", "ofe.json", ".gitignore"]
   },
   "docs": {
     "extensions": [".md"],

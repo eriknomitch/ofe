@@ -9,3 +9,5 @@ rescue LoadError
   require "ofe"
 end
 
+puts ARGV
+
