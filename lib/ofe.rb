@@ -39,6 +39,7 @@ module Ofe
   end
 
   def self.list(argv)
+    parse_and_require_config_file
 
     # Support and check for "--list <group>"
     if group = argv.first
@@ -54,6 +55,8 @@ module Ofe
   end
 
   def self.list_group_names
+    parse_and_require_config_file
+
     puts @@config_json.keys
   end
 
@@ -195,8 +198,8 @@ module Ofe
 
       require_editor_env_variable
 
-      parse_and_require_config_file
       parse_and_execute_special_arguments
+      parse_and_require_config_file
 
       open_group
 
