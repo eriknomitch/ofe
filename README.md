@@ -20,6 +20,7 @@ Within groups, you can define keys:
 * `"extensions":` Searches your entire current directory for files with that extension to edit.
 * `"files":` Either relative paths to files you want to open for editing or paths with globbing.
 * `"exclusions":` Exclude any files starting with the exclusion paths specified.
+* `"first_file":` Ensure that this file path is the first argument to your editor.
 
 **Example ofe.json:**
 

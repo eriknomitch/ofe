@@ -178,6 +178,7 @@ module Ofe
     files      = group_config["files"]
     extensions = group_config["extensions"]
     exclusions = group_config["exclusions"]
+    first_file = group_config["first_file"]
 
     to_open    = []
 
@@ -188,8 +189,10 @@ module Ofe
     ["files", "extensions", "exclusions"].each do |key|
       ensure_group_key_is_class_if_exists group, group_config, key, Array
     end
+    
+    ensure_group_key_is_class_if_exists group, group_config, "first_file", String
 
-    # Add Full Path/Glob Files
+    # Add full path/glob files
     # --------------------------------------------
     if files
       files.each do |file|
@@ -199,7 +202,7 @@ module Ofe
       end
     end
 
-    # Add Files by Extension
+    # Add files by extension
     # --------------------------------------------
     if extensions
       extensions.each do |extension|
@@ -210,16 +213,40 @@ module Ofe
       end
     end
 
-    # Check for Exclusions and Exclude
+    # Check for exclusions and exclude
     # --------------------------------------------
     if exclusions
       to_open = to_open.collect do |file|
         file unless file_should_be_excluded?(file, exclusions)
       end.compact
     end
+
+    # Uniqify
+    # --------------------------------------------
+    to_open.uniq!
     
+    # Move "first_file" to front
+    # --------------------------------------------
+    if first_file
+
+      if to_open.member? first_file
+
+        # Move to beginning of array
+        to_open.delete first_file
+        to_open.unshift first_file
+
+      else
+        puts "#{current_file_basename}: warning: Specified first file '#{first_file}' is not included in the list of files to open in group '#{group}'."
+      end
+      
+    end
+    
+    # Ensure files were found
+    # --------------------------------------------
     raise "No files found for group '#{group}'." if to_open.empty?
 
+    # Return formatted or as-is
+    # --------------------------------------------
     return format_files_to_open(to_open) if formatted
 
     to_open
