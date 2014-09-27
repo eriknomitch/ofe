@@ -43,7 +43,7 @@ module Ofe
   end
 
   def self.list(argv)
-    parse_and_require_config_file
+    require_and_parse_config_file
 
     # Support and check for "--list <group>"
     if group = argv.first
@@ -59,7 +59,7 @@ module Ofe
   end
 
   def self.list_group_names
-    parse_and_require_config_file
+    require_and_parse_config_file
 
     puts @@config_json.keys
   end
@@ -95,7 +95,7 @@ module Ofe
   end
 
   def self.open_self
-    parse_and_require_config_file
+    require_config_file
 
     system "#{editor} #{config_file_filename}"
   end
@@ -140,7 +140,7 @@ module Ofe
     raise "fatal: No ofe.json config file found in this directory."
   end
 
-  def self.parse_and_require_config_file
+  def self.require_and_parse_config_file
     require_config_file
 
     begin
@@ -242,7 +242,7 @@ module Ofe
       require_editor_env_variable
 
       parse_and_execute_special_arguments
-      parse_and_require_config_file
+      require_and_parse_config_file
 
       open_group
 
