@@ -1,14 +1,12 @@
 {
   "default": {
     "extensions": [".rb", ".gem", ".md"],
-    "files":      ["Rakefile", "Gemfile", "bin/*", "ofe.json", ".gitignore"]
+    "files":      ["Rakefile", "Gemfile", "bin/*", "ofe.json", ".gitignore", "foo bar"]
   },
   "docs": {
     "extensions": [".md"]
   },
   "git": {
     "files": [".git/config", ".gitignore"]
-  },
-  "empty": {
   }
 }

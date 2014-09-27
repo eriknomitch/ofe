@@ -2,6 +2,7 @@
 # OFE ============================================
 # ================================================
 require "json"
+require "shellwords"
 
 # ------------------------------------------------
 # MODULE->OFE ------------------------------------
@@ -63,7 +64,11 @@ module Ofe
     ARGV.first.to_sym
   end
 
-  def self.files_to_open_for_group(group)
+  def self.format_files_to_open(files)
+    Shellwords.join(files)
+  end
+
+  def self.files_to_open_for_group(group, formatted: true)
     group_config = find_group_config(group)
 
     raise "Group '#{group}' is not defined in your ofe.json config file." unless group_config
@@ -76,23 +81,33 @@ module Ofe
     raise "Neither files: nor extensions: is defined for group '#{group}'." if !files and !group
 
     # Check that they're the right type if they exist
-    raise "Key files: is not an array for group '#{group}'." if files and files.class != Array
-    raise "Key extensions: is not an array for group '#{group}'." if extensions and extensions.class != Array
+    raise "Key 'files': is not an array for group '#{group}'."      if files and files.class != Array
+    raise "Key 'extensions': is not an array for group '#{group}'." if extensions and extensions.class != Array
 
-    # Files
+    # Add Full Path/Glob Files
     # --------------------------------------------
-    to_open.concat(files) if files
+    if files
+      files.each do |file|
 
-    # Extensions
+        # This will support globbing and make sure the file exists
+        to_open.concat Dir[file]
+      end
+    end
+
+    # Add Files by Extension
     # --------------------------------------------
     if extensions
       extensions.each do |extension|
+
+        # Glob the extension in current directory and all subdirectories
         files_found = Dir["**/*#{extension}"]
         to_open.concat files_found
       end
     end
     
     raise "No files found for group '#{group}'." if to_open.empty?
+
+    return format_files_to_open(to_open) if formatted
 
     to_open
   end
@@ -102,6 +117,8 @@ module Ofe
   # ----------------------------------------------
   def self.open_group(group=get_group)
     to_open = files_to_open_for_group(group)
+
+    puts to_open
 
   end
 
