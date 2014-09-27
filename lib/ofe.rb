@@ -61,7 +61,7 @@ module Ofe
   end
 
   def self.make_example_config_file
-    raise "Cannot make config file because ./ofe.json already exists." if config_file_exists?
+    raise "Cannot make config file because ofe.json already exists in this directory." if config_file_exists?
 
     empty_config_file = <<-EOS
 {
@@ -86,7 +86,7 @@ module Ofe
     puts "--------------------------------------------------"
     puts empty_config_file
     puts "--------------------------------------------------"
-    puts "Wrote example config file to ./ofe.json"
+    puts "Wrote example config file to ofe.json"
 
   end
 
@@ -98,6 +98,12 @@ module Ofe
 
   def self.editor
     ENV["EDITOR"]
+  end
+
+  def self.ensure_group_key_is_class_if_exists(group, group_config, key, compare_class)
+    if group_config[key] and group_config[key].class != compare_class
+      raise "Config key '#{key}' is not class #{compare_class} for group '#{group}'."
+    end
   end
   
   # ----------------------------------------------
@@ -125,7 +131,7 @@ module Ofe
       @@config_json = JSON.parse(File.open(config_file_filename).read)
     
     rescue => exception
-      raise "Cannot parse 'ofe.json' because its JSON is invalid."
+      raise "Cannot parse ofe.json because its JSON is invalid."
     end
 
   end
@@ -154,14 +160,17 @@ module Ofe
 
     files      = group_config["files"]
     extensions = group_config["extensions"]
+    exclusions = group_config["exclusions"]
+
     to_open    = []
 
     # Check that at least one definition exists
     raise "Neither files: nor extensions: is defined for group '#{group}'." if !files and !group
 
     # Check that they're the right type if they exist
-    raise "Key 'files': is not an array for group '#{group}'."      if files and files.class != Array
-    raise "Key 'extensions': is not an array for group '#{group}'." if extensions and extensions.class != Array
+    ["files", "extensions", "exclusions"].each do |key|
+      ensure_group_key_is_class_if_exists group, group_config, key, Array
+    end
 
     # Add Full Path/Glob Files
     # --------------------------------------------
@@ -182,6 +191,12 @@ module Ofe
         files_found = Dir["**/*#{extension}"]
         to_open.concat files_found
       end
+    end
+
+    # Check for Exclusions and Exclude
+    # --------------------------------------------
+    if exclusions
+
     end
     
     raise "No files found for group '#{group}'." if to_open.empty?
@@ -220,7 +235,7 @@ module Ofe
 
     rescue => exception
 
-      puts "#{current_file_basename}: #{exception}"
+      puts "#{current_file_basename}: fatal: #{exception}"
       exit 1
 
     end
