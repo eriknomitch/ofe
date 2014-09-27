@@ -105,6 +105,13 @@ module Ofe
       raise "Config key '#{key}' is not class #{compare_class} for group '#{group}'."
     end
   end
+
+  def self.file_should_be_excluded?(file, exclusions)
+    exclusions.each do |exclusion|
+      return true if file.start_with?(exclusion)
+    end
+    false
+  end
   
   # ----------------------------------------------
   # CONFIG-FILE ----------------------------------
@@ -196,7 +203,9 @@ module Ofe
     # Check for Exclusions and Exclude
     # --------------------------------------------
     if exclusions
-
+      to_open = to_open.collect do |file|
+        file unless file_should_be_excluded?(file, exclusions)
+      end.compact
     end
     
     raise "No files found for group '#{group}'." if to_open.empty?
