@@ -44,6 +44,18 @@ Within groups, you can define keys:
 }
 ```
 
+Match all files recursively in a directory and its subdirectories with:
+
+```Json
+  "files": ["my_directory/**/**"]
+```
+
+Match all files with an extension recursively in a directory and its subdirectories with:
+
+```Json
+  "files": ["my_directory/**/*.ext"]
+```
+
 ## Usage
 
 ```Shell
