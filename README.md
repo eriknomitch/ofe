@@ -29,7 +29,8 @@ Within groups, you can define keys:
   "default": {
     "extensions": [".rb", ".gem", ".md"],
     "files":      ["Rakefile", "Gemfile", "bin/*", "ofe.json", ".gitignore"],
-    "exclusions": ["test/", "spec/"]
+    "exclusions": ["test/", "spec/"],
+    "first_file": "Gemfile"
   },
   "docs": {
     "extensions": [".md"]
