@@ -52,6 +52,9 @@ $ ofe --list
 # Parses and pretty prints group 'git' in ofe.json
 $ ofe --list git
 
+# Writes an example config file to ./ofe.json
+$ ofe --mk-example-config
+
 ```
 
 ## Tips
