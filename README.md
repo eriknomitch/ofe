@@ -1,12 +1,41 @@
-# Open For Editing (ofe)
+# ofe (Open For Editing)
 
 CLI Gem which opens specified files (ofe.json) for editing in your text editor
 
-# Usage
+## Installation
+
+## Configuration
+
+Add an `ofe.json` configuration file in any directory. 
+
+The primary keys define "groups" which you can pass to `ofe` (see Usage).
+
+Within groups, you can define keys:
+* `"extensions":` Searches your entire current directory for files with that extension to edit.
+* `"files":` Either relative paths to files you want to open for editing or paths with globbing.
+
+**Example ofe.json:**
+
+```Json
+{
+  "default": {
+    "extensions": [".rb", ".gem", ".md"],
+    "files":      ["Rakefile", "Gemfile", "bin/*", "ofe.json", ".gitignore", "foo bar"]
+  },
+  "docs": {
+    "extensions": [".md"]
+  },
+  "git": {
+    "files": [".git/config", ".gitignore"]
+  }
+}
+```
+
+## Usage
 
 ```Shell
 
-# Opens the 'default' group in your editor
+# Opens the 'default' group in your editor (e.g., executes: vim Gemfile README.md [...])
 $ ofe
 
 # Opens the 'docs' group in your editor
