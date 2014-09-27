@@ -50,28 +50,59 @@ module Ofe
 
   end
 
+  def self.find_group_config(group)
+    @@config_json[group.to_s]
+  end
+
   # ----------------------------------------------
-  # TARGET ---------------------------------------
+  # GROUP ----------------------------------------
   # ----------------------------------------------
-  def self.get_target
+  def self.get_group
     return :default if ARGV.count == 0
 
     ARGV.first.to_sym
   end
 
-  def self.valid_target?(target)
+  def self.files_to_open_for_group(group)
+    group_config = find_group_config(group)
+
+    raise "Group '#{group}' is not defined in your ofe.json config file." unless group_config
+
+    files      = group_config["files"]
+    extensions = group_config["extensions"]
+    to_open    = []
+
+    # Check that at least one definition exists
+    raise "Neither files: nor extensions: is defined for group '#{group}'." if !files and !group
+
+    # Check that they're the right type if they exist
+    raise "Key files: is not an array for group '#{group}'." if files and files.class != Array
+    raise "Key extensions: is not an array for group '#{group}'." if extensions and extensions.class != Array
+
+    # Files
+    # --------------------------------------------
+    to_open.concat(files) if files
+
+    # Extensions
+    # --------------------------------------------
+    if extensions
+      extensions.each do |extension|
+        files_found = Dir["**/*#{extension}"]
+        to_open.concat files_found
+      end
+    end
+    
+    raise "No files found for group '#{group}'." if to_open.empty?
+
+    to_open
   end
-  
-  # ----------------------------------------------
-  # FINDING --------------------------------------
-  # ----------------------------------------------
-  def self.files_for_target(target)
-  end
-  
+
   # ----------------------------------------------
   # OPENING --------------------------------------
   # ----------------------------------------------
-  def self.open_target(target=get_target)
+  def self.open_group(group=get_group)
+    to_open = files_to_open_for_group(group)
+
   end
 
   # ----------------------------------------------
@@ -82,9 +113,7 @@ module Ofe
     begin
 
       parse_config_file
-      open_target
-
-      puts @@config_json
+      open_group
 
     rescue => exception
 
