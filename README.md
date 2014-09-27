@@ -19,6 +19,7 @@ The primary keys define "groups" which you can pass to `ofe` (see Usage).
 Within groups, you can define keys:
 * `"extensions":` Searches your entire current directory for files with that extension to edit.
 * `"files":` Either relative paths to files you want to open for editing or paths with globbing.
+* `"exclusions":` Exclude any files starting with the exclusion paths specified.
 
 **Example ofe.json:**
 
