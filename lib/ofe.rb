@@ -10,13 +10,55 @@ module Ofe
   # ----------------------------------------------
   # ATTRIBUTES -----------------------------------
   # ----------------------------------------------
+  
+  # ----------------------------------------------
+  # CONFIG-FILE ----------------------------------
+  # ----------------------------------------------
+  def self.config_file_filename
+    "ofe.json"
+  end
+
+  def self.config_file_exists?
+    File.exist? config_file_filename
+  end
+
+  def self.require_config_file
+    return true if config_file_exists?
+
+    raise "fatal: No config file found at ./#{config_file_filename}"
+  end
+
+  # ----------------------------------------------
+  # TARGET ---------------------------------------
+  # ----------------------------------------------
+  def self.target
+    target = :default
+    target = ARGV.first.to_sym if ARGV.count > 0
+    target
+  end
+  
+  # ----------------------------------------------
+  # FINDING --------------------------------------
+  # ----------------------------------------------
+  
+  # ----------------------------------------------
+  # OPENING --------------------------------------
+  # ----------------------------------------------
 
   # ----------------------------------------------
   # MAIN -----------------------------------------
   # ----------------------------------------------
   def self.main()
-    puts ARGV
-    puts ARGV
+
+    begin
+
+      require_config_file
+
+      puts target
+
+    rescue => exception
+      puts exception
+    end
   end
   
 end
