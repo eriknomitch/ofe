@@ -1,4 +1,4 @@
-# ofe (Open For Editing)
+# Open For Editing (ofe)
 
 CLI Gem which opens specified files (ofe.json) for editing in your text editor
 
