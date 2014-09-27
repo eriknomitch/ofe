@@ -58,7 +58,7 @@ $ ofe --groups
 # Parses and pretty prints ofe.json
 $ ofe --list
 
-# Parses and pretty prints group 'git' in ofe.json
+# Parses and pretty prints group from ofe.json
 $ ofe --list git
 
 # Writes an example config file to ./ofe.json
