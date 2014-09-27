@@ -24,24 +24,56 @@ module Ofe
   def self.parse_and_execute_special_arguments
     case ARGV.first
     when "--list"
-
-      ARGV.shift
-
-      # Support "--list <group>"
-      if group = ARGV.first
-        to_puts = @@config_json[group]
-        raise "Group '#{group}' not found in ofe.json." unless to_puts
-      else
-        to_puts = @@config_json
-      end
-
-      puts JSON.pretty_generate(to_puts)
+      list ARGV[1..ARGV.length-1]
       exit
 
     when "--groups"
-      puts @@config_json.keys
+      list_group_names
       exit
+
+    when "--mk-example-config"
+      make_example_config_file
+      exit
+
     end
+  end
+
+  def self.list(argv)
+
+    # Support and check for "--list <group>"
+    if group = argv.first
+      to_puts = @@config_json[group]
+      raise "Group '#{group}' not found in ofe.json." unless to_puts
+
+    # <group> was not passed
+    else
+      to_puts = @@config_json
+    end
+
+    puts JSON.pretty_generate(to_puts)
+  end
+
+  def self.list_group_names
+    puts @@config_json.keys
+  end
+
+  def self.make_example_config_file
+    raise "Cannot make config file because ./ofe.json already exists." if config_file_exists?
+
+    empty_config_file <<-EOS
+{
+  "default": {
+    "extensions": [],
+    "files":      ["ofe.json"]
+  },
+  "docs": {
+    "extensions": [".md"]
+  },
+  "git": {
+    "files": [".git/config", ".gitignore"]
+  }
+}
+    EOS
   end
 
   def self.require_editor_env_variable
