@@ -43,6 +43,16 @@ module Ofe
       exit
     end
   end
+
+  def self.require_editor_env_variable
+    unless ENV["EDITOR"]
+      raise "EDITOR environment variable is not set."
+    end
+  end
+
+  def self.editor
+    ENV["EDITOR"]
+  end
   
   # ----------------------------------------------
   # CONFIG-FILE ----------------------------------
@@ -139,10 +149,9 @@ module Ofe
   # OPENING --------------------------------------
   # ----------------------------------------------
   def self.open_group(group=get_group)
-    to_open = files_to_open_for_group(group)
+    to_open_formatted = files_to_open_for_group(group)
 
-    puts to_open
-
+    system "#{editor} #{to_open_formatted}"
   end
 
   # ----------------------------------------------
@@ -151,6 +160,8 @@ module Ofe
   def self.main()
 
     begin
+
+      require_editor_env_variable
 
       parse_and_require_config_file
       parse_and_execute_special_arguments
