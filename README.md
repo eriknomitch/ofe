@@ -2,6 +2,16 @@
 
 CLI Gem which opens specified files (ofe.json) for editing in your text editor
 
+**Example:**
+
+```
+
+# Open the 'default' group in your editor
+# For example, this may execute: vim Gemfile Rakefile README.md app/models/* [...]
+$ ofe 
+
+```
+
 ## Installation
 
 ```Shell
