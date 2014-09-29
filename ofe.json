@@ -7,6 +7,9 @@
   "docs": {
     "extensions": [".md"]
   },
+  "diff": {
+    "command": "git diff --name-only"
+  },
   "git": {
     "files": [".git/config", ".gitignore"]
   }

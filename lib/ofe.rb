@@ -179,6 +179,7 @@ module Ofe
     extensions = group_config["extensions"]
     exclusions = group_config["exclusions"]
     first_file = group_config["first_file"]
+    command    = group_config["command"]
 
     to_open    = []
 
@@ -189,8 +190,10 @@ module Ofe
     ["files", "extensions", "exclusions"].each do |key|
       ensure_group_key_is_class_if_exists group, group_config, key, Array
     end
-    
-    ensure_group_key_is_class_if_exists group, group_config, "first_file", String
+
+    ["first_file", "command"].each do |key|
+      ensure_group_key_is_class_if_exists group, group_config, key, String
+    end
 
     # Add full path/glob files
     # --------------------------------------------
@@ -211,6 +214,12 @@ module Ofe
         files_found = Dir["**/*#{extension}"]
         to_open.concat files_found
       end
+    end
+    
+    # Add files by command
+    # --------------------------------------------
+    if command
+      to_open.concat(`#{command}`.split("\n"))
     end
 
     # Check for exclusions and exclude
