@@ -31,6 +31,7 @@ Within groups, you can define keys:
 * `"files":` Either relative paths to files you want to open for editing or paths with globbing.
 * `"exclusions":` Exclude any files starting with the exclusion paths specified.
 * `"first_file":` Ensure that this file path is the first argument to your editor.
+* `"command":` Executes a shell command and adds all files from its output to the open list.
 
 **Example ofe.json:**
 
@@ -47,6 +48,9 @@ Within groups, you can define keys:
   },
   "git": {
     "files": [".git/config", ".gitignore"]
+  },
+  "diff": {
+    "command": "git diff --name-only"
   },
   "test": {
     "files": ["test/**/*.rb", "spec/**/*.rb"]
