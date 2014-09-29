@@ -5,11 +5,9 @@ CLI Gem which opens specified files (ofe.json) for editing in your text editor
 **Example:**
 
 ```
-
 # Open the 'default' group in your editor
 # For example, this may execute: vim Gemfile Rakefile README.md app/models/* [...]
 $ ofe 
-
 ```
 
 ## Installation
@@ -31,7 +29,7 @@ Within groups, you can define keys:
 * `"files":` Either relative paths to files you want to open for editing or paths with globbing.
 * `"exclusions":` Exclude any files starting with the exclusion paths specified.
 * `"first_file":` Ensure that this file path is the first argument to your editor.
-* `"command":` Executes a shell command and adds all files from its output to the open list.
+* `"command":` Executes a shell command and adds all files (delimited by newlines) from its output to the open list. Be careful with this one.
 
 **Example ofe.json:**
 
@@ -81,7 +79,6 @@ Match all files with an extension recursively in a directory and its subdirector
 ## Usage
 
 ```Shell
-
 # Opens the 'default' group in your editor (e.g., executes: vim Gemfile README.md [...])
 $ ofe
 
@@ -102,7 +99,6 @@ $ ofe --mk-example-config|-m
 
 # Opens ofe.json in your editor
 $ ofe --self|-s
-
 ```
 
 ## Credits
