@@ -1,5 +1,5 @@
 module Ofe
   class TSortedFiles
-    include Tsort
+    include TSort
   end
 end
