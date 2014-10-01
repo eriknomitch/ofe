@@ -3,6 +3,9 @@
 # ================================================
 require "json"
 require "shellwords"
+require "tsort"
+
+require "ofe/t_sorted_files"
 
 # ------------------------------------------------
 # MODULE->OFE ------------------------------------
