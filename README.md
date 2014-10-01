@@ -41,7 +41,7 @@ Within groups, you can define keys:
     "files":      ["Rakefile", "Gemfile", "bin/*", "ofe.json", ".gitignore"],
     "exclusions": ["test/", "spec/"],
     "first_file": "Gemfile",
-    "topology":   {"baz.rb" => ["foo.rb, "foo.rb"]}
+    "topology":   {"baz.rb": ["foo.rb, "foo.rb"]}
   },
   "docs": {
     "extensions": [".md"]
