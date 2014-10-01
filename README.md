@@ -29,6 +29,7 @@ Within groups, you can define keys:
 * `"files":` Either relative paths to files you want to open for editing or paths with globbing.
 * `"exclusions":` Exclude any files starting with the exclusion paths specified.
 * `"first_file":` Ensure that this file path is the first argument to your editor.
+* `"topology":` Defines a topology to topologically sort the found files (i.e., which files should be passed after which other files)
 * `"command":` Executes a shell command and adds all files (delimited by newlines) from its output to the open list. Be careful with this one.
 
 **Example ofe.json:**
@@ -39,7 +40,8 @@ Within groups, you can define keys:
     "extensions": [".rb", ".gem", ".md"],
     "files":      ["Rakefile", "Gemfile", "bin/*", "ofe.json", ".gitignore"],
     "exclusions": ["test/", "spec/"],
-    "first_file": "Gemfile"
+    "first_file": "Gemfile",
+    "topology":   {"baz.rb" => ["foo.rb, "foo.rb"]}
   },
   "docs": {
     "extensions": [".md"]
