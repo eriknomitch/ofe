@@ -183,6 +183,7 @@ module Ofe
     exclusions = group_config["exclusions"]
     first_file = group_config["first_file"]
     command    = group_config["command"]
+    topology   = group_config["topology"]
 
     to_open    = []
 
@@ -196,6 +197,10 @@ module Ofe
 
     ["first_file", "command"].each do |key|
       ensure_group_key_is_class_if_exists group, group_config, key, String
+    end
+    
+    ["topology"].each do |key|
+      ensure_group_key_is_class_if_exists group, group_config, key, Hash
     end
 
     # Add full path/glob files
@@ -240,6 +245,12 @@ module Ofe
     # Remove any matches that are directories
     # --------------------------------------------
     to_open.delete_if {|file| Dir.exist? file }
+
+    # Topologically sort files
+    # --------------------------------------------
+    if topology
+      to_open = TSortedFiles.new(to_open, topology).sorted
+    end
     
     # Move "first_file" to front
     # --------------------------------------------
