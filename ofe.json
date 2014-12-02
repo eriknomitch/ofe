@@ -2,7 +2,7 @@
   "default": {
     "extensions": [".rb", ".gem", "*.gemspec", ".md"],
     "files":      ["Rakefile", "Gemfile", "bin/*", "ofe.json", ".gitignore", "foo bar"],
-    "first_file": "Gemfile"
+    "first_file": "lib/ofe.rb"
   },
   "docs": {
     "extensions": [".md"]
