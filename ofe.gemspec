@@ -13,6 +13,8 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/eriknomitch/ofe"
   s.licenses = ["GPL-2.0"]
 
+  s.required_ruby_version = ">= 2.1.1"
+
   # Files & Pathes
   s.files = `git ls-files`.split("\n")
   s.require_path = "lib"
