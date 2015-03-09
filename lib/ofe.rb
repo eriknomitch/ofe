@@ -61,10 +61,14 @@ module Ofe
     puts JSON.pretty_generate(to_puts)
   end
 
-  def self.list_group_names
+  def self.group_names
     require_and_parse_config_file
 
-    puts @@config_json.keys
+    @@config_json.keys
+  end
+
+  def self.list_group_names
+    puts group_names
   end
 
   def self.make_example_config_file
@@ -166,7 +170,17 @@ module Ofe
   def self.get_group
     return :default if ARGV.count == 0
 
-    ARGV.first.to_sym
+    group_match = ARGV.first
+
+    # Return the group if we have an exact match
+    return group_match.to_sym if group_names.member? group_match
+
+    # Otherwise, try to fuzzy match
+    group_names.each do |group_name|
+      return group_name.to_sym if group_name.start_with? group_match
+    end
+
+    raise "Group '#{group_match}' was not found."
   end
 
   def self.format_files_to_open(files)
