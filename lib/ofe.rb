@@ -4,6 +4,7 @@
 require "json"
 require "shellwords"
 require "tsort"
+require "readline"
 
 require "ofe/t_sorted_files"
 
@@ -177,7 +178,15 @@ module Ofe
 
     # Otherwise, try to fuzzy match
     group_names.each do |group_name|
-      return group_name.to_sym if group_name.start_with? group_match
+      if group_name.start_with? group_match
+        printf "Fuzzy matched group '#{group_name}'. Press ENTER to open: "
+        begin
+          Readline.readline
+          return group_name.to_sym
+        rescue Interrupt
+          exit 0
+        end
+      end
     end
 
     raise "Group '#{group_match}' was not found."
