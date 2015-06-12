@@ -52,6 +52,7 @@ Jeweler::Tasks.new do |gem|
   gem.authors = ["Erik Nomitch"]
   gem.license = "GPL-2"
   gem.licenses = ["GPL-2"]
+  gem.date = "2014-09-27"
   gem.post_install_message = <<-EOS
 ---------------------------------------------------------------
 If you have not done so, you will need to set your EDITOR 
