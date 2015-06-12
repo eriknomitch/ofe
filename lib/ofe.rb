@@ -27,11 +27,10 @@ module Ofe
   VERSION = ::Gem.loaded_specs["ofe"].version.to_s
 
   # ----------------------------------------------
-  # VARIABLES ------------------------------------
+  # ATTRIBUTES -----------------------------------
   # ----------------------------------------------
-  # FIX: Make this a module attribute
-  @@config_json = nil
-  
+  mattr_accessor :config_json
+
   # ----------------------------------------------
   # UTILITY --------------------------------------
   # ----------------------------------------------
@@ -65,12 +64,12 @@ module Ofe
 
     # Support and check for "--list <group>"
     if group = argv.first
-      to_puts = @@config_json[group]
+      to_puts = config_json[group]
       raise "Group '#{group}' not found in ofe.json." unless to_puts
 
     # <group> was not passed
     else
-      to_puts = @@config_json
+      to_puts = config_json
     end
 
     puts JSON.pretty_generate(to_puts)
@@ -79,7 +78,7 @@ module Ofe
   def self.group_names
     require_and_parse_config_file
 
-    @@config_json.keys
+    config_json.keys
   end
 
   def self.list_group_names
@@ -167,7 +166,7 @@ module Ofe
 
     begin
 
-      @@config_json = JSON.parse(File.open(config_file_filename).read)
+      self.config_json = JSON.parse(File.open(config_file_filename).read)
     
     rescue => exception
       raise "Cannot parse ofe.json because its JSON is invalid."
@@ -176,7 +175,7 @@ module Ofe
   end
 
   def self.find_group_config(group)
-    @@config_json[group.to_s]
+    config_json[group.to_s]
   end
 
   # ----------------------------------------------
