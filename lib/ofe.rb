@@ -29,7 +29,7 @@ module Ofe
   # ----------------------------------------------
   # ATTRIBUTES -----------------------------------
   # ----------------------------------------------
-  mattr_accessor :config_json
+  mattr_accessor :configuration
 
   # ----------------------------------------------
   # UTILITY --------------------------------------
@@ -56,24 +56,43 @@ module Ofe
       open_self
       exit
     
-    when "--version", "-v"
-      puts "#{current_file_basename} #{VERSION}"
+    when "--help", "-h"
+      help
       exit
 
     end
   end
 
+  # ----------------------------------------------
+  # UTILITY->ERRORS ------------------------------
+  # ----------------------------------------------
+  def self.raise_group_not_found(group)
+    raise "Group '#{group}' not found in ofe.json.  Try '#{current_file_basename} --list' to list groups or '#{current_file_basename} --help'."
+  end
+
+  # ----------------------------------------------
+  # HELP/USAGE -----------------------------------
+  # ----------------------------------------------
+  def self.help
+    puts "usage: #{current_file_basename} [--version|-v] [--list|-l] [--groups|-g]"
+    puts "           [--mk-example-config|-m] [--self|-s] [--help|-h]"
+  end
+
+  # ----------------------------------------------
+  # LISTING --------------------------------------
+  # ----------------------------------------------
   def self.list(argv)
     require_and_parse_config_file
 
     # Support and check for "--list <group>"
     if group = argv.first
-      to_puts = config_json[group]
-      raise "Group '#{group}' not found in ofe.json." unless to_puts
+      to_puts = configuration[group]
+
+      raise_group_not_found group unless to_puts
 
     # <group> was not passed
     else
-      to_puts = config_json
+      to_puts = configuration
     end
 
     puts JSON.pretty_generate(to_puts)
@@ -82,7 +101,7 @@ module Ofe
   def self.group_names
     require_and_parse_config_file
 
-    config_json.keys
+    configuration.keys
   end
 
   def self.list_group_names
@@ -170,7 +189,7 @@ module Ofe
 
     begin
 
-      self.config_json = JSON.parse(File.open(config_file_filename).read)
+      self.configuration = JSON.parse(File.open(config_file_filename).read)
     
     rescue => exception
       raise "Cannot parse ofe.json because its JSON is invalid."
@@ -179,7 +198,7 @@ module Ofe
   end
 
   def self.find_group_config(group)
-    config_json[group.to_s]
+    configuration[group.to_s]
   end
 
   # ----------------------------------------------
@@ -206,7 +225,7 @@ module Ofe
       end
     end
 
-    raise "Group '#{group_match}' was not found."
+    raise_group_not_found group_match
   end
 
   def self.format_files_to_open(files)
@@ -216,7 +235,7 @@ module Ofe
   def self.files_to_open_for_group(group, formatted: false)
     group_config = find_group_config(group)
 
-    raise "Group '#{group}' is not defined in your ofe.json config file." unless group_config
+    raise_group_not_found group unless group_config
 
     files      = group_config["files"]
     extensions = group_config["extensions"]
