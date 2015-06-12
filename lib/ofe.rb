@@ -55,6 +55,10 @@ module Ofe
     when "--self", "-s"
       open_self
       exit
+    
+    when "--version", "-v"
+      puts "#{current_file_basename} #{VERSION}"
+      exit
 
     end
   end
