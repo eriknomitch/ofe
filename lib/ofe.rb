@@ -7,6 +7,9 @@ require "shellwords"
 require "tsort"
 require "readline"
 
+require "active_support/core_ext/module"
+require "active_support/core_ext/object/blank"
+
 require "ofe/t_sorted_files"
 
 require "pry"
@@ -26,6 +29,7 @@ module Ofe
   # ----------------------------------------------
   # VARIABLES ------------------------------------
   # ----------------------------------------------
+  # FIX: Make this a module attribute
   @@config_json = nil
   
   # ----------------------------------------------
