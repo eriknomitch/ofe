@@ -12,6 +12,9 @@ source "https://rubygems.org"
 # ------------------------------------------------
 gem "activesupport"
 
+# FIX: This should only exist in the development group.
+gem "pry"
+
 group :development do
   gem "shoulda", ">= 0"
   gem "rdoc", "~> 3.12"
@@ -19,5 +22,4 @@ group :development do
   gem "bundler", "~> 1.0"
   gem "jeweler", "~> 2.0.1"
   gem "simplecov", ">= 0"
-  gem "pry"
 end
