@@ -12,6 +12,12 @@ $ ofe
 
 ## Installation
 
+### From Rubygems
+```Shell
+$ gem install ofe
+```
+
+### Manually
 ```Shell
 git clone https://github.com/eriknomitch/ofe.git
 cd ofe
