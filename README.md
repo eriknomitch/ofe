@@ -21,6 +21,7 @@ $ gem install ofe
 ```Shell
 git clone https://github.com/eriknomitch/ofe.git
 cd ofe
+bundle install
 rake
 ```
 
