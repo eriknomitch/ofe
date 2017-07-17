@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+for f in $(grep -irl juwelier *)
+do
+  sed -i.bak 's/juwelier/juwelier/g' $f
+  sed -i.bak 's/Juwelier/Juwelier/g' $f
+done
+bundle update
