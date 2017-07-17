@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE",
     "README.md",
     "Rakefile",
