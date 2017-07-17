@@ -12,6 +12,8 @@ require 'rake'
 
 require 'juwelier'
 
+VERSION = File.open("VERSION", "rb").read.chomp
+
 desc "Tests ofe gem"
 
 task :test do
@@ -33,7 +35,7 @@ end
 desc "Installs ofe gem"
 
 task :install do
-  sh "gem install ofe-0.0.0.gem"
+  sh "gem install ofe-#{VERSION}.gem"
 end
 
 desc "Uninstalls, Builds, and Installs ofe gem"
