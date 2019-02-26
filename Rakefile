@@ -35,7 +35,7 @@ end
 desc "Installs ofe gem"
 
 task :install do
-  sh "gem install ./ofe-#{VERSION}.gem"
+  sh "gem install ./pkg/ofe-#{VERSION}.gem"
 end
 
 desc "Uninstalls, Builds, and Installs ofe gem"

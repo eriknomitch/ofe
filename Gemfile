@@ -19,7 +19,7 @@ group :development do
   gem "shoulda", ">= 0"
   gem "rdoc", "~> 3.12"
   gem "yard", "~> 0.7"
-  gem "bundler", "~> 1.13"
+  gem "bundler", "~> 2.0"
   gem "juwelier"
   gem "simplecov", ">= 0"
 end
