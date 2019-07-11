@@ -22,4 +22,5 @@ group :development do
   gem "bundler", "~> 2.0"
   gem "juwelier"
   gem "simplecov", ">= 0"
+  gem "rb-readline"
 end
